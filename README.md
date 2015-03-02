@@ -1,9 +1,9 @@
 SpeekFrame 
 
-steep 1 
-create index.php file
+steep 1 \n
+create index.php file \n
 
-steeup 2
+steep 2 \n
 edit index.php
 
 define('PRJ','Home');
