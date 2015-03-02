@@ -1,14 +1,14 @@
 SpeekFrame 
 
-steep 1 \n
-create index.php file \n
+steep 1 <br>
+create index.php file <br>
 
-steep 2 \n
-edit index.php
+steep 2 <br>
+edit index.php <br>
 
-define('PRJ','Home');
-require './Speek/Speek.php';
+define('PRJ','Home'); <br>
+require './Speek/Speek.php'; <br>
 
- Author Jinsong
-Version BETA3
- Update 2015-03-02 11:04
+ Author Jinsong <br>
+Version BETA3 <br>
+ Update 2015-03-02 11:04 <br>
