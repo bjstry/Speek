@@ -36,5 +36,14 @@ class C{
 			}
 		}
 	}
+	protected function url($a=null,$b=null){
+		if(is_null($b)){
+			echo "<script>alert('$a')</script>";
+			echo "<script>history.go(-1)</script>";
+		}else{
+			echo "<script>alert('$a')</script>";
+			echo "<script>location.href='$_SERVER[SCRIPT_NAME]$b'</script>";
+		}
+	}
 }
 ?>

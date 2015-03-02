@@ -51,4 +51,13 @@ function D($a){
 	$obj->init($a);
 	return $obj;
 }
+function session($a=null,$b=null){
+	if(is_null($b))
+		return $_SESSION[$a];
+	$_SESSION[$a] = $b;
+	if($b == 'null')
+		unset($_SESSION[$a]);
+	if($a == 'clear' and $b = null)
+		session_destroy();
+}
 ?>
