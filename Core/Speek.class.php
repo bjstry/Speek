@@ -11,10 +11,10 @@ class Speek{
 	static function AutoLoad($c){
 		include_once SYS_CORE.$c.CEXT;	
 	}
-	private static function GetError($errno,$errstr){
-		$err = "Error:[$errno] - $errstr \r\n";
+	private static function GetError($errno,$errstr,$errfile,$errline,$errcont){
+		$err = $errline." 行 [$errno] $errstr 在文件 $errfile 中\r\n";
 		error_log($err,3,SYS_LOG.'error.log');
-		$err_echo = "<b>Error:</b> [$errno] $errstr<br />";
+		$err_echo = $errline."行 [$errno] $errstr 在文件 $errfile 中<br />";
 		echo $err_echo;
 		if($errno == 256 || $errno == 4096){
 			exit();
@@ -57,6 +57,8 @@ class Speek{
 			$_GET['m'] = !empty($m)?$m:$_GET['m'];
 			
 		}
+		$_GET['c'] = ucwords($_GET['c']);
+		$_GET['m'] = ucwords($_GET['m']);
 	}
 	private static function LoadConf(){
 		if(is_file(SYS_LIB.'functions'.EXT)){
@@ -68,8 +70,8 @@ class Speek{
 		}
 	}
 	private static function LoadFile($a,$b){
-		$c = ucwords($a);
-		$m = ucwords($b);
+		$c = $a;
+		$m = $b;
 		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;
 		if(!is_file($cfile)){
 			exit($c.' 控制器不存在！');

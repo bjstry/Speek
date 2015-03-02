@@ -1,7 +1,7 @@
 <?php
 	//beta2 start 15210-1026
 	//author TRY
-
+	session_start();
 	defined('SYS') or define('SYS',__DIR__);
 	defined('PRJ') or define('PRJ',dirname($_SERVER['SCRIPT_FILENAME']).'/SpeekHome');
 	defined('EXT') or define('EXT','.php');
@@ -12,7 +12,7 @@
 	defined('SYS_LOG') or define('SYS_LOG',SYS.'/Log/');
 	defined('SYS_VERSION') or define('SYS_VERSION','SpeekFrame-0.03');
 	require SYS_LIB.'/functions.php';
-	require SYS_CORE.'/Speek.class.php';
 	require SYS_LIB.'Tpl/Smarty'.CEXT;
+	require SYS_CORE.'/Speek.class.php';
 	Speek::Run();
 ?>
