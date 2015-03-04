@@ -17,6 +17,7 @@ class Speek{
 		$err_echo = $errline."行 [$errno] $errstr 在文件 $errfile 中<br />";
 		echo $err_echo;
 		if($errno == 256 || $errno == 4096){
+			echo $err_echo;
 			exit();
 		}
 	}
@@ -61,8 +62,8 @@ class Speek{
 		$_GET['m'] = ucwords($_GET['m']);
 	}
 	private static function LoadConf(){
-		if(is_file(SYS_LIB.'functions'.EXT)){
-			include_once SYS_LIB.'functions'.EXT;
+		if(is_file(C('PRJ_COM').'functions'.EXT)){
+			include_once C('PRJ_COM').'functions'.EXT;
 		}
 		if(is_file(SYS_CONF.'Config'.EXT)){
 			C(include(SYS_CONF.'Config'.EXT));
