@@ -11,11 +11,11 @@ class C{
 				//echo 'ok';
 				$this->view->assign($a);
 			}else{
-				exit('参数非法!');
+				exit('参数非法!1');
 			}
 		}else{
 			if($b==null){
-				exit('参数非法!');
+				exit('参数非法!2');
 			}else{
 				//echo 'ok2';
 				$this->view->assign($a,$b);
@@ -23,6 +23,9 @@ class C{
 		}
 	}
 	protected function display($a=null,$b=null,$c=null){
+		if(is_file(C('PRJ_VDIR').C('DT_THEME').'/theme/head'.C('DT_V_EXT')))
+			//echo C('PRJ_VDIR').C('DT_THEME').'/theme/head'.C('DT_V_EXT');
+			$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/theme/head'.C('DT_V_EXT'));
 		$type = empty($a)?1:0;
 		if($type == 1){
 			$err = is_file(C('PRJ_VDIR').C('DT_THEME').'/'.$_GET['c'].$_GET['m'].C('DT_V_EXT'))?$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/'.$_GET['c'].$_GET['m'].C('DT_V_EXT'),$b,$c):1;
@@ -35,6 +38,9 @@ class C{
 				exit(C('PRJ_VDIR').C('DT_THEME').'/'.$a.C('DT_V_EXT').'- 模板文件不存在!');
 			}
 		}
+		if(is_file(C('PRJ_VDIR').C('DT_THEME').'/theme/footer'.C('DT_V_EXT')))
+			//echo C('PRJ_VDIR').C('DT_THEME').'/theme/footer'.C('DT_V_EXT');
+			$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/theme/footer'.C('DT_V_EXT'));
 	}
 	protected function url($a=null,$b=null){
 		if(is_null($b)){

@@ -51,6 +51,26 @@ class M{
 			$sql.=$this->order;
 		return $this->fetch($this->query('select'.$a.'from '.$this->table.$sql.' limit 1'));
 	}
+	public function select($a=null,$b=null){
+		$sql=null;
+		$num=null;
+		$row=null;
+		$num = !is_null($a)?' limit '.$a:'';
+		if(is_null($b)){
+			$b = ' * ';
+		}else{
+			$b = ' `'.$b.'` ';
+		}
+		if(!is_null($this->where))
+			$sql = $this->where;
+		if(!is_null($this->order))
+			$sql.=$this->order;
+		$query = $this->query('select'.$b.'from '.$this->table.$sql.$num);
+		while($srow = $this->fetch($query)){
+			$row[]=$srow;
+		}
+		return $row;
+	}
 	public function fetch($a){
 		return mysql_fetch_array($a);
 	}

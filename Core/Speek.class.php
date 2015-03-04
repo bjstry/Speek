@@ -11,7 +11,7 @@ class Speek{
 	static function AutoLoad($c){
 		include_once SYS_CORE.$c.CEXT;	
 	}
-	private static function GetError($errno,$errstr,$errfile,$errline,$errcont){
+	public static function GetError($errno,$errstr,$errfile,$errline,$errcont){
 		$err = $errline." 行 [$errno] $errstr 在文件 $errfile 中\r\n";
 		error_log($err,3,SYS_LOG.'error.log');
 		$err_echo = $errline."行 [$errno] $errstr 在文件 $errfile 中<br />";
@@ -70,9 +70,7 @@ class Speek{
 			is_file(C('PRJ_CONF').'Config'.EXT)?C(array_merge(include(SYS_CONF.'Config'.EXT),include(C('PRJ_CONF').'Config'.EXT))):C(include(SYS_CONF.'Config'.EXT));
 		}
 	}
-	private static function LoadFile($a,$b){
-		$c = $a;
-		$m = $b;
+	private static function LoadFile($c,$m){
 		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;
 		if(!is_file($cfile)){
 			exit($c.' 控制器不存在！');
