@@ -269,3 +269,13 @@
 34 行 [8] Undefined index:  在文件 /home/jinsong/Project/web/xmtables/Home/T_c/6cf7083ebc8827b36d56a7d75c28296f8f179457.file.IndexIndex.html.php 中
 34 行 [8] Undefined index:  在文件 /home/jinsong/Project/web/xmtables/Home/T_c/6cf7083ebc8827b36d56a7d75c28296f8f179457.file.IndexIndex.html.php 中
 34 行 [8] Undefined index:  在文件 /home/jinsong/Project/web/xmtables/Home/T_c/6cf7083ebc8827b36d56a7d75c28296f8f179457.file.IndexIndex.html.php 中
+12 行 [8] Undefined variable: vlaue 在文件 /home/jinsong/Project/web/lib/Speek/Lib/functions.php 中
+85 行 [2] explode() expects at least 2 parameters, 1 given 在文件 /home/jinsong/Project/web/lib/Speek/Core/Speek.class.php 中
+69 行 [8] Undefined variable: paht_len 在文件 /home/jinsong/Project/web/lib/Speek/Core/Speek.class.php 中
+69 行 [8] Undefined variable: paht_len 在文件 /home/jinsong/Project/web/lib/Speek/Core/Speek.class.php 中
+69 行 [8] Undefined variable: paht_len 在文件 /home/jinsong/Project/web/lib/Speek/Core/Speek.class.php 中
+69 行 [8] Undefined variable: paht_len 在文件 /home/jinsong/Project/web/lib/Speek/Core/Speek.class.php 中
+69 行 [8] Undefined variable: paht_len 在文件 /home/jinsong/Project/web/lib/Speek/Core/Speek.class.php 中
+71 行 [8] Undefined offset: 6 在文件 /home/jinsong/Project/web/lib/Speek/Core/Speek.class.php 中
+56 行 [8] Undefined index: user 在文件 /home/jinsong/Project/web/lib/Speek/Lib/functions.php 中
+56 行 [8] Undefined index: user 在文件 /home/jinsong/Project/web/lib/Speek/Lib/functions.php 中

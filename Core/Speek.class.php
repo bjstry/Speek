@@ -34,6 +34,7 @@ class Speek{
 		//if(!file_exists(C('PRJ_LOG'))) mkdir(C('PRJ_LOG'));
 	}
 	private static function GetCm(){
+		$path = null;
 		if(C('DT_URLTYPE')==1){
 			$_GET['c'] = !empty($_GET['c'])?$_GET['c']:C('DT_CONTROLLER');
 			$_GET['m'] = !empty($_GET['m'])?$_GET['m']:C('DT_ACTION');
@@ -60,6 +61,16 @@ class Speek{
 		}
 		$_GET['c'] = ucwords($_GET['c']);
 		$_GET['m'] = ucwords($_GET['m']);
+		$method = explode(C('DT_V_EXT'),$_GET['m']);
+		if(count($method)>1){
+			$_GET['m']=$method[0];
+		}
+	 	$path_len = count($path);
+		for($i=0;$i<$path_len;$i+=2){
+			if($i>3){
+				$_GET[$path[$i-1]] = $path[$i];
+			}
+		}
 	}
 	private static function LoadConf(){
 		if(is_file(C('PRJ_COM').'functions'.EXT)){
@@ -71,6 +82,7 @@ class Speek{
 		}
 	}
 	private static function LoadFile($c,$m){
+		$method=null;
 		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;
 		if(!is_file($cfile)){
 			exit($c.' 控制器不存在！');
