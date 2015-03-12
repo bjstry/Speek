@@ -52,8 +52,10 @@ function D($a){
 	return $obj;
 }
 function session($a=null,$b=null){
-	if(is_null($b))
-		return $_SESSION[$a];
+	if(is_null($b)){
+		$resut = isset($_SESSION[$a])?$_SESSION[$a]:null;
+		return $resut;
+	}
 	$_SESSION[$a] = $b;
 	if($b == 'null')
 		unset($_SESSION[$a]);

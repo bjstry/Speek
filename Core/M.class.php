@@ -71,6 +71,24 @@ class M{
 		}
 		return $row;
 	}
+	public function insert($a=null,$b=null){
+		$sql=null;
+		if(is_null($b)){
+			$sql = "insert into `$this->table` values ($a)";
+		}else{
+			$sql = "insert into `$this->table` ($a) values ($b)";
+		}
+		print_r($sql);
+		$query = $this->query($sql) or die(mysql_error());
+		return mysql_insert_id();
+	}
+	public function update($a=null){
+		$where = $this->where;
+		$sql = "update `$this->table` set $a$where";
+		print_r($sql);
+		$query = $this->query($sql) or die(mysql_error());
+		return $query;
+	}
 	public function fetch($a){
 		return mysql_fetch_array($a);
 	}

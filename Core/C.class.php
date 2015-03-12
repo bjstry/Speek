@@ -11,11 +11,11 @@ class C{
 				//echo 'ok';
 				$this->view->assign($a);
 			}else{
-				exit('参数非法!1');
+				exit('参数非法,多余的参数:'.$b);
 			}
 		}else{
-			if($b==null){
-				exit('参数非法!2');
+			if($a==null)){
+				exit('参数非法:'.$a.' 不能为空');
 			}else{
 				//echo 'ok2';
 				$this->view->assign($a,$b);

@@ -5,6 +5,7 @@
 	defined('SYS') or define('SYS',__DIR__);
 	defined('PRJ') or define('PRJ',dirname($_SERVER['SCRIPT_FILENAME']).'/SpeekHome');
 	defined('ROOT') or define('ROOT',dirname($_SERVER['SCRIPT_NAME']));
+	defined('URL') or define('URL',$_SERVER['SCRIPT_NAME']);
 	defined('EXT') or define('EXT','.php');
 	defined('CEXT') or define('CEXT','.class.php');
 	defined('SYS_CORE') or define('SYS_CORE',SYS.'/Core/');
