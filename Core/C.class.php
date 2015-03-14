@@ -14,7 +14,7 @@ class C{
 				exit('参数非法,多余的参数:'.$b);
 			}
 		}else{
-			if($a==null)){
+			if($a==null){
 				exit('参数非法:'.$a.' 不能为空');
 			}else{
 				//echo 'ok2';
