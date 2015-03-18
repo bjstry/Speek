@@ -1,6 +1,7 @@
 <?php
 return array(
 	'DEBUG'            =>false,
+	'REWRITE'          =>false,
 	'DT_MODEL'         =>'Home',
 	'DT_URLTYPE'       =>3,
 	'DT_CONTROLLER'    =>'Index',

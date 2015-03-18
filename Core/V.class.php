@@ -1,6 +1,7 @@
 <?php
 class V extends Smarty{
 	function __construct(){
+		parent::__construct();
 		$this->caching = C('DT_CACHE');
 		$this->template_dir = C('PRJ_VDIR');
 		$this->compile_dir = C('PRJ_VCDIR');

@@ -14,7 +14,7 @@
 	defined('SYS_LOG') or define('SYS_LOG',SYS.'/Log/');
 	defined('SYS_VERSION') or define('SYS_VERSION','SpeekFrame-0.04');
 	require SYS_LIB.'/functions.php';
-	require SYS_LIB.'Tpl/Smarty'.CEXT;
+	require_once(SYS_LIB.'Tpl/Smarty'.CEXT);
 	require SYS_CORE.'/Speek.class.php';
 	Speek::Run();
 ?>

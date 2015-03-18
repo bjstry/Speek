@@ -81,6 +81,7 @@ class Speek{
 		if(is_file(C('PRJ_COM').'functions'.EXT)){
 			include C('PRJ_COM').'functions'.EXT;
 		}
+		C('REWRITE')?define('R',ROOT):define('R',URL);
 	}
 	private static function LoadFile($c,$m){
 		$method=null;
