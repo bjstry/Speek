@@ -1,5 +1,6 @@
 <?php
 return array(
+	'DEBUG'            =>false,
 	'DT_MODEL'         =>'Home',
 	'DT_URLTYPE'       =>3,
 	'DT_CONTROLLER'    =>'Index',
@@ -14,6 +15,7 @@ return array(
 	'PRJ_MDIR'         =>PRJ.'/M/',
 	'PRJ_COM'          =>PRJ.'/Com/',
 	'PRJ_CONF'         =>PRJ.'/Conf/',
+	'PRJ_LOG'          =>PRJ.'/Log/',
 	'PRJ_VDIR'         =>PRJ.'/T/',
 	'PRJ_VCDIR'        =>PRJ.'/T_c/',
 	'PRJ_VCACHE'       =>PRJ.'/T_cache/',

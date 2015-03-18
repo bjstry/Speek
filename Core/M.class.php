@@ -40,6 +40,7 @@ class M{
 	}
 	public function find($a=null){
 		$sql=null;
+		$row=null;
 		if(is_null($a)){
 			$a = ' * ';
 		}else{
@@ -49,7 +50,16 @@ class M{
 			$sql = $this->where;
 		if(!is_null($this->order))
 			$sql.=$this->order;
-		return $this->fetch($this->query('select'.$a.'from '.$this->table.$sql.' limit 1'));
+		$sqltrl = 'select'.$a.'from '.$this->table.$sql.' limit 1';
+		$query = $this->query($sqltrl);
+		if(empty($query)){
+			die('Find error - '.mysql_error().'<br>SQL : '.$sqltrl);
+		}else{
+			$row = $this->fetch($query);
+		}
+		if(empty($row))
+			echo '<br>SQL : '.$sqltrl;
+		return $row;
 	}
 	public function select($a=null,$b=null){
 		$sql=null;
@@ -65,7 +75,8 @@ class M{
 			$sql = $this->where;
 		if(!is_null($this->order))
 			$sql.=$this->order;
-		$query = $this->query('select'.$b.'from '.$this->table.$sql.$num);
+		$sql = 'select'.$b.'from '.$this->table.$sql.$num;
+		$query = $this->query($sql) or die('Select error - '.mysql_error().'<br>SQL : '.$sql);
 		while($srow = $this->fetch($query)){
 			$row[]=$srow;
 		}
@@ -78,15 +89,13 @@ class M{
 		}else{
 			$sql = "insert into `$this->table` ($a) values ($b)";
 		}
-		print_r($sql);
-		$query = $this->query($sql) or die(mysql_error());
+		$query = $this->query($sql) or die('Insert error - '.mysql_error().'<br>SQL : '.$sql);
 		return mysql_insert_id();
 	}
 	public function update($a=null){
 		$where = $this->where;
 		$sql = "update `$this->table` set $a$where";
-		print_r($sql);
-		$query = $this->query($sql) or die(mysql_error());
+		$query = $this->query($sql) or die('Update error - '.mysql_error().'<br>SQL : '.$sql);
 		return $query;
 	}
 	public function fetch($a){
