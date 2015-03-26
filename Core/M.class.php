@@ -90,6 +90,7 @@ class M{
 			$sql = "insert into `$this->table` ($a) values ($b)";
 		}
 		$query = $this->query($sql) or die('Insert error - '.mysql_error().'<br>SQL : '.$sql);
+		echo $sql;
 		return mysql_insert_id();
 	}
 	public function update($a=null){
