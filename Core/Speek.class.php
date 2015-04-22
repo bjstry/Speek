@@ -12,9 +12,9 @@ class Speek{
 		include_once SYS_CORE.$c.CEXT;	
 	}
 	public static function GetError($errno,$errstr,$errfile,$errline,$errcont){
-		$err = $errline." 行 [$errno] $errstr 在文件 $errfile 中\r\n";
+		$err = date("Y-m-d H:i:s ").$errline." 行 [$errno] $errstr 在文件 $errfile 中\r\n";
 		error_log($err,3,C('PRJ_LOG').'error.log');
-		$err_echo = $errline."行 [$errno] $errstr 在文件 $errfile 中<br />";
+		$err_echo = date("Y-m-d H:i:s ").$errline."行 [$errno] $errstr 在文件 $errfile 中<br />";
 		if(C('DEBUG'))
 			echo $err_echo;
 		if($errno == 256 || $errno == 4096){

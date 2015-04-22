@@ -2,6 +2,8 @@
 	//beta2 start 15210-1026
 	//author TRY
 	session_start();
+	header("Content-Type: text/html;charset=utf-8"); 
+	date_default_timezone_set("Asia/Chongqing");
 	defined('SYS') or define('SYS',__DIR__);
 	defined('PRJ') or define('PRJ',dirname($_SERVER['SCRIPT_FILENAME']).'/SpeekHome');
 	defined('ROOT') or define('ROOT',dirname($_SERVER['SCRIPT_NAME']));
