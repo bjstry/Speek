@@ -1,6 +1,10 @@
 <?php
-	//beta2 start 15210-1026
-	//author TRY
+/*  Speek.php 驱动文件
+ *  定义相关参数
+ *  调用Run方法运行框架
+ *  加载公共函数库functions.php
+ *  加载smarty模版引擎
+**/
 	session_start();
 	header("Content-Type: text/html;charset=utf-8"); 
 	date_default_timezone_set("Asia/Chongqing");

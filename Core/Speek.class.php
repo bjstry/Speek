@@ -1,5 +1,10 @@
 <?php
+/*
+ * 核心类Speek文件
+ * 
+**/
 class Speek{
+	/******核心运行方法********/
 	public static function Run(){
 		spl_autoload_register('Speek::AutoLoad');
 		Speek::LoadConf();
@@ -11,6 +16,7 @@ class Speek{
 	static function AutoLoad($c){
 		include_once SYS_CORE.$c.CEXT;	
 	}
+	//-----错误捕捉函数，页面输出和文件输出
 	public static function GetError($errno,$errstr,$errfile,$errline,$errcont){
 		$err = date("Y-m-d H:i:s ").$errline." 行 [$errno] $errstr 在文件 $errfile 中\r\n";
 		error_log($err,3,C('PRJ_LOG').'error.log');
@@ -22,6 +28,7 @@ class Speek{
 			exit();
 		}
 	}
+	//-----创建相关目录
 	private static function CreateDir(){
 		if(!file_exists(PRJ)) mkdir(PRJ);
 		if(!file_exists(C('PRJ_CDIR'))) mkdir(C('PRJ_CDIR'));
@@ -34,6 +41,7 @@ class Speek{
 		if(!file_exists(C('PRJ_CONF'))) mkdir(C('PRJ_CONF'));
 		if(!file_exists(C('PRJ_LOG'))) mkdir(C('PRJ_LOG'));
 	}
+	//-----格式化URL
 	private static function GetCm(){
 		$path = null;
 		if(C('DT_URLTYPE')==1){
@@ -73,6 +81,7 @@ class Speek{
 			}
 		}
 	}
+	//-----加载主配置文件、用户配置文件和用户公共函数库
 	private static function LoadConf(){
 		if(is_file(SYS_CONF.'Config'.EXT)){
 			C(include(SYS_CONF.'Config'.EXT));
@@ -83,6 +92,7 @@ class Speek{
 		}
 		C('REWRITE')?define('R',ROOT):define('R',URL);
 	}
+	//-----加载控制器、启动控制器方法
 	private static function LoadFile($c,$m){
 		$method=null;
 		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;

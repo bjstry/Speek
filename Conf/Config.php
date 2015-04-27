@@ -1,4 +1,7 @@
 <?php
+/*
+ * 系统配置文件
+ */
 return array(
 	'DEBUG'            =>false,
 	'REWRITE'          =>false,
@@ -22,11 +25,11 @@ return array(
 	'PRJ_VCACHE'       =>PRJ.'/T_cache/',
 	'DT_V_LEFT'        =>'{',
 	'DT_V_RIGHT'       =>'}',
-	'DB_HOST'          =>'localhost',
-	'DB_NAME'          =>'speek',
-	'DB_USER'          =>'root',
-	'DB_PASS'          =>'gentai',
-	'DB_PREFIX'        =>'sp_',
-	'DB_CHARSET'       =>'UTF-8',
+	'DB_HOST'          =>'',
+	'DB_NAME'          =>'',
+	'DB_USER'          =>'',
+	'DB_PASS'          =>'',
+	'DB_PREFIX'        =>'',
+	'DB_CHARSET'       =>'',
 );
 ?>

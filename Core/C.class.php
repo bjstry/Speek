@@ -1,10 +1,14 @@
 <?php
+/*
+ * 控制器基类
+ */
 class C{
 	protected $view = null;
 	//protected $model = null;
 	public function __construct(){
 		$this->view = new V();
 	}
+	//-----模版参数传递函数
 	protected function assign($a=null,$b=null){
 		if(is_array($a)){
 			if($b==null){
@@ -22,6 +26,7 @@ class C{
 			}
 		}
 	}
+	//-----模版调用函数，自动插入头文件和foot文件
 	protected function display($a=null,$b=null,$c=null){
 		if(is_file(C('PRJ_VDIR').C('DT_THEME').'/theme/head'.C('DT_V_EXT')))
 			//echo C('PRJ_VDIR').C('DT_THEME').'/theme/head'.C('DT_V_EXT');
@@ -42,6 +47,7 @@ class C{
 			//echo C('PRJ_VDIR').C('DT_THEME').'/theme/footer'.C('DT_V_EXT');
 			$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/theme/footer'.C('DT_V_EXT'));
 	}
+	//-----调转函数
 	protected function url($a=null,$b=null){
 		if(is_null($b)){
 			echo "<script>alert('$a')</script>";

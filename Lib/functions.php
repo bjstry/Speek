@@ -1,4 +1,7 @@
 <?php
+/*
+ * 系统公共函数库，自动调用
+ */
 function C($name=null,$value=null){
 	static $_conf = array();
 	if(empty($name)){
