@@ -6,6 +6,8 @@ class M{
 	protected $table = null;
 	protected $where = null;
 	protected $order = null;
+	private $verify =  null;
+	private $verarr = array("require");
 	public function init($a){
 		if(is_array($a)){
 			$this->table = !empty($a['table'])?C('DB_PREFIX').strtolower($a['table']):'';
@@ -104,7 +106,8 @@ class M{
 	public function fetch($a){
 		return mysql_fetch_array($a);
 	}
-	public function verify(){
+	public function verify($a,$b){
+
 	}
 }
 ?>

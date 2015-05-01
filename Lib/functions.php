@@ -1,7 +1,9 @@
 <?php
 /*
- * 系统公共函数库，自动调用
+ * 系统公共函数库，全局调用
  */
+ 
+ //-----C方法 获取和设置配置
 function C($name=null,$value=null){
 	static $_conf = array();
 	if(empty($name)){
@@ -28,11 +30,15 @@ function C($name=null,$value=null){
 	}
 	return null;
 }
+
+//-----M方法:生成带数据库操作的空模块
 function M($a){
 	$obj = new M();
 	$obj->init($a);
 	return $obj;
 }
+
+//-----D方法:模块加载
 function D($a){
 	if(empty($a)){
 		echo '模块名未定义！';
@@ -54,6 +60,8 @@ function D($a){
 	$obj->init($a);
 	return $obj;
 }
+
+//-----session方法：设置或获取session值
 function session($a=null,$b=null){
 	if(is_null($b)){
 		$resut = isset($_SESSION[$a])?$_SESSION[$a]:null;

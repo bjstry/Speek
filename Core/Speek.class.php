@@ -4,15 +4,15 @@
  * 
 **/
 class Speek{
-	/******核心运行方法********/
 	public static function Run(){
-		spl_autoload_register('Speek::AutoLoad');
-		Speek::LoadConf();
-		Speek::CreateDir();
-		set_error_handler('Speek::GetError');
-		Speek::GetCm();
-		Speek::LoadFile($_GET['c'],$_GET['m']);
+		spl_autoload_register('Speek::AutoLoad');   //注册自动加载类函数
+		Speek::LoadConf();                          //加载核心配置、用户配置和公共函数库
+		Speek::CreateDir();                         //创建必要目录
+		set_error_handler('Speek::GetError');       //注册错误处理函数
+		Speek::GetCm();                             //定位控制器
+		Speek::LoadFile($_GET['c'],$_GET['m']);     //启动控制器，控制器接管程序
 	}
+	//-----自动加载类方法
 	static function AutoLoad($c){
 		include_once SYS_CORE.$c.CEXT;	
 	}
@@ -41,7 +41,7 @@ class Speek{
 		if(!file_exists(C('PRJ_CONF'))) mkdir(C('PRJ_CONF'));
 		if(!file_exists(C('PRJ_LOG'))) mkdir(C('PRJ_LOG'));
 	}
-	//-----格式化URL
+	//-----定位控制器
 	private static function GetCm(){
 		$path = null;
 		if(C('DT_URLTYPE')==1){
@@ -92,7 +92,7 @@ class Speek{
 		}
 		C('REWRITE')?define('R',ROOT):define('R',URL);
 	}
-	//-----加载控制器、启动控制器方法
+	//-----加载控制器、控制器接管程序
 	private static function LoadFile($c,$m){
 		$method=null;
 		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;
