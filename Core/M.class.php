@@ -104,5 +104,7 @@ class M{
 	public function fetch($a){
 		return mysql_fetch_array($a);
 	}
+	public function verify(){
+	}
 }
 ?>
