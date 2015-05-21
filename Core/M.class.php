@@ -6,8 +6,8 @@ class M{
 	protected $table = null;
 	protected $where = null;
 	protected $order = null;
-	private $verify =  null;
-	private $verarr = array("require");
+	protected $verify =  null;
+	protected $_verarr;
 	public function init($a){
 		if(is_array($a)){
 			$this->table = !empty($a['table'])?C('DB_PREFIX').strtolower($a['table']):'';
@@ -24,6 +24,9 @@ class M{
 	protected function connect(){
 		mysql_connect(C('DB_HOST'),C('DB_USER'),C('DB_PASS')) or die('连接数据库失败！ - '.mysql_error());
 		$this->query('set names '.C('DB_CHARSET'));
+	}
+	public function PrintArr(){
+		print_r($this->verarr);
 	}
 	public function where($a=null){
 		$next;
@@ -94,6 +97,11 @@ class M{
 		}else{
 			$sql = "insert into `$this->table` ($a) values ($b)";
 		}
+		foreach($this->_verarr as $key=>$val){
+			if($this->verify($_POST[$key],$val) == 0 ){
+				die("客户单位不能为空！");
+			}
+		}
 		$query = $this->query($sql) or die('Insert error - '.mysql_error().'<br>SQL : '.$sql);
 		return mysql_insert_id();
 	}
@@ -107,7 +115,26 @@ class M{
 		return mysql_fetch_array($a);
 	}
 	public function verify($a,$b){
-
+		$return;
+		switch($b){
+			case 1:
+				if($a == null){
+					$return = 0;
+				}else{
+					$return = 1;
+				}
+				break;
+			case 2:
+				if($a<0){
+					$retrun = 0;
+				}else{
+					$return = 1;
+				}
+				break;
+			default:
+				$return = 1;
+		}
+		return $return;
 	}
 }
 ?>
