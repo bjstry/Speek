@@ -97,11 +97,7 @@ class M{
 		}else{
 			$sql = "insert into `$this->table` ($a) values ($b)";
 		}
-		foreach($this->_verarr as $key=>$val){
-			if($this->verify($_POST[$key],$val) == 0 ){
-				die("客户单位不能为空！");
-			}
-		}
+		$this->verify();
 		$query = $this->query($sql) or die('Insert error - '.mysql_error().'<br>SQL : '.$sql);
 		return mysql_insert_id();
 	}
@@ -114,27 +110,20 @@ class M{
 	public function fetch($a){
 		return mysql_fetch_array($a);
 	}
-	public function verify($a,$b){
-		$return;
-		switch($b){
-			case 1:
-				if($a == null){
-					$return = 0;
-				}else{
-					$return = 1;
-				}
-				break;
-			case 2:
-				if($a<0){
-					$retrun = 0;
-				}else{
-					$return = 1;
-				}
-				break;
-			default:
-				$return = 1;
+	public function verify(){
+		foreach($this->_verarr as $arr){
+			switch($arr[1]){
+				case 1:
+					if($_POST[$arr[0]] == null){
+						die($arr[2]);
+					}
+					break;
+				case 2:
+					if($_POST[$arr[0]] < 0){
+						die($arr[2]);
+					}
+			}
 		}
-		return $return;
 	}
 }
 ?>
