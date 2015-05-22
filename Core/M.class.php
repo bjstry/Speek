@@ -151,7 +151,22 @@ class M{
 		$val   分页GET值，当前页
 		$url   当前页面地址或者分页页面地址
 	**/
-	public function page($count,$nums,$key,$val,$url=null){
+	public function page($count=null,$nums=null,$key=null,$val=null,$url=null){
+		if($count == null){
+			$jin = $this->fetch($this->query("select count(*) from $this->table".$this->where));
+			$count = $jin[0];
+
+		}
+		if($nums==null){
+			$nums=C('PAGE_NUM');
+		}
+		if($key==null){
+			$key = 'pid';
+		}
+		if($val==null){
+			$val = $_GET['pid'];
+		}
+		$url = empty($url)?$_SERVER['SCRIPT_NAME'].'/index/index':$url; //获取url
 		$rtarr;           //返回数组
 		$nowpage = 1;     //默认当前页
 		$leftstatus = 0;  //上一页是否激活
@@ -160,7 +175,6 @@ class M{
 		$pages = ceil($count/$nums); //总页数
 		$content = null;  //页码部分
 		$activeclass = " class='uk-active' ";
-		$url = empty($url)?$_SERVER['SCRIPT_NAME'].'/index/index':$url; //获取url
 		if($val > 1 && $val < $pages+1){
 			$nowpage = $val;
 			$leftstatus = 1;
