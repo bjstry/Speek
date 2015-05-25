@@ -18,7 +18,7 @@
 	defined('SYS_CONF') or define('SYS_CONF',SYS.'/Conf/');
 	defined('SYS_LIB') or define('SYS_LIB',SYS.'/Lib/');
 	defined('SYS_LOG') or define('SYS_LOG',SYS.'/Log/');
-	defined('SYS_VERSION') or define('SYS_VERSION','Speek-1.21');
+	defined('SYS_VERSION') or define('SYS_VERSION','Speek-1.26');
 	require SYS_LIB.'/functions.php';
 	require_once(SYS_LIB.'Tpl/Smarty'.CEXT);
 	require SYS_CORE.'/Speek.class.php';
