@@ -152,29 +152,34 @@ class M{
 		$url   当前页面地址或者分页页面地址
 	**/
 	public function page($count=null,$nums=null,$key=null,$val=null,$url=null){
+		//总条数，为空则自动统计数据库内总条数
 		if($count == null){
 			$jin = $this->fetch($this->query("select count(*) from $this->table".$this->where));
 			$count = $jin[0];
 
 		}
+		//单页条数为空则调用配置文件 默认为10 
 		if($nums==null){
 			$nums=C('PAGE_NUM');
 		}
+		//分页GET变量 默认为pid
 		if($key==null){
 			$key = 'pid';
 		}
+		//当前页码，默认自动从GET获取
 		if($val==null){
 			$val = $_GET['pid'];
 		}
+		//分页URL地址，默认自动获取
 		$url = empty($url)?$_SERVER['SCRIPT_NAME'].'/index/index':$url; //获取url
 		$rtarr;           //返回数组
 		$nowpage = 1;     //默认当前页
 		$leftstatus = 0;  //上一页是否激活
 		$rightstatus = 1; //下一页是否激活
-		$pagenums = 4;    //最多显示页数
+		$pagenums = 4;    //最多显示页码数
 		$pages = ceil($count/$nums); //总页数
 		$content = null;  //页码部分
-		$activeclass = " class='uk-active' ";
+		$activeclass = 'uk-active'; //选中页css类
 		if($val > 1 && $val < $pages+1){
 			$nowpage = $val;
 			$leftstatus = 1;
@@ -184,12 +189,11 @@ class M{
 		}
 		$leftout = !$leftstatus?"class='uk-disabled'":"";	
 		$rightout = !$rightstatus?"class='uk-disabled'":"";	
-		$activeclass = null;
 		$rows = $this->select(($nowpage-1)*$nums.",$nums");
 		for($i=1;$i<=$pages;$i++){
-			if($pages < 5){
+			if($pages <= $pagenums){
 				if($i == $nowpage){
-					$content.="<li class='uk-active'><a href='$url/$key/$i'>$i</a></li>";
+					$content.="<li class='$activeclass'><span>$i</span></li>";
 				}else{
 					$content.="<li><a href='$url/$key/$i'>$i</a></li>";
 				}
@@ -197,18 +201,34 @@ class M{
 				if($i == $nowpage-1 or $i == $nowpage+1){
 					$content.="<li><a href='$url/$key/$i'>$i</a></li>";
 				}else if($i == $nowpage){
-					$content.="<li class='uk-active'><a href='$url/$key/$i'>$i</a></li>";
+					$content.="<li class='$activeclass'><span>$i</span></li>";
 				}else if($i == $pages){
-					$content.="...<li class='uk-active'><a href='$url/$key/$i'>$i</a></li>";
+					$content.="<li><span>...</span></li><li><a href='$url/$key/$i'>$i</a></li>";
 				}
 			}
 		}
-		$pageout = "
+		if($nowpage == 1){
+			$pageout = "
+			<ul class='uk-pagination'>
+				<li $leftout><span><i class='uk-icon-angle-double-left'></i></span></li>
+				".$content."
+				<li $rightout><a href='$url/$key/".($nowpage+1)."'><i class='uk-icon-angle-double-right'></i></a></li>
+			</ul>";
+		}else if($nowpage == $pages){
+			$pageout = "
+			<ul class='uk-pagination'>
+				<li $leftout><a href='$url/$key/".($nowpage-1)."'><i class='uk-icon-angle-double-left'></i></a></li>
+				".$content."
+				<li $rightout><span><i class='uk-icon-angle-double-right'></i></span></li>
+			</ul>";
+		}else{
+			$pageout = "
 			<ul class='uk-pagination'>
 				<li $leftout><a href='$url/$key/".($nowpage-1)."'><i class='uk-icon-angle-double-left'></i></a></li>
 				".$content."
 				<li $rightout><a href='$url/$key/".($nowpage+1)."'><i class='uk-icon-angle-double-right'></i></a></li>
 			</ul>";
+		}
 		$rtarr = array($rows,$pageout);
 		return $rtarr;
 	}
