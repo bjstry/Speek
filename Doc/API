@@ -1,0 +1,12 @@
+一 控制器
+二 模块
+三 视图
+
+模块
+ 分页
+ page($count,$nums,$key,$val,$url)
+  $count 数据总条数，为空则自动统计
+  $nums 单页条数，默认为10
+  $key 分页GET变量名，默认pid
+  $val 分页GET值，默认自动获取
+  $url 分页地址，默认自动获取
