@@ -10,5 +10,5 @@ define('PRJ','Home'); <br>
 require './Speek/Speek.php'; <br><br><br>
 
  Author Jinsong <br>
-Version BETA3 <br>
- Update 2015-03-02 11:04 
+ Version V1.27 <br>
+ Update 2015-06-02 11:12 
