@@ -1,4 +1,21 @@
-一 控制器
+快速开始
+入口文件定义
+<?php
+	define('PRJ','Home');
+	require './Speek/Speek.php';
+?>
+项目目录结构
+
+项目配置		RPJ/Conf
+项目全局函数库	PRJ/Com
+项目日志		PRJ/Log
+控制器			PRJ/C
+模块			PRJ/M
+模板			PRJ/T
+Runtime File	PRJ/T_c
+模板缓存		PRJ/T_cache
+
+一 控制器 PRJ/C
 二 模块
 三 视图
 

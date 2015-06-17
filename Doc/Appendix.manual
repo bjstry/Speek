@@ -1,0 +1,13 @@
+Global Variables
+
+SYS				System directory
+SYS_CORE		System Core Lib directory
+SYS_CONF		System Configure directory
+SYS_LIB			System Other Lib direcotry
+SYS_VERSION		System Version.
+
+PRJ				Project directory /ROOT/PRJ
+ROOT			Website Root directory /ROOT
+URL				入口文件  /ROOT/PRJ/index.php
+EXT				.php
+CEXT			.class.php

@@ -11,6 +11,7 @@
 	defined('SYS') or define('SYS',__DIR__);
 	defined('PRJ') or define('PRJ',dirname($_SERVER['SCRIPT_FILENAME']).'/SpeekHome');
 	defined('ROOT') or define('ROOT',dirname($_SERVER['SCRIPT_NAME']));
+	defined('_P_') or define('_P_',dirname($_SERVER['SCRIPT_NAME']).'/Public');
 	defined('URL') or define('URL',$_SERVER['SCRIPT_NAME']);
 	defined('EXT') or define('EXT','.php');
 	defined('CEXT') or define('CEXT','.class.php');
@@ -18,7 +19,7 @@
 	defined('SYS_CONF') or define('SYS_CONF',SYS.'/Conf/');
 	defined('SYS_LIB') or define('SYS_LIB',SYS.'/Lib/');
 	defined('SYS_LOG') or define('SYS_LOG',SYS.'/Log/');
-	defined('SYS_VERSION') or define('SYS_VERSION','Speek-1.27');
+	defined('SYS_VERSION') or define('SYS_VERSION','Speek-1.271');
 	require SYS_LIB.'/functions.php';
 	require_once(SYS_LIB.'Tpl/Smarty'.CEXT);
 	require SYS_CORE.'/Speek.class.php';
