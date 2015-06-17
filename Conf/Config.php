@@ -31,6 +31,6 @@ return array(
 	'DB_PASS'          =>'',
 	'DB_PREFIX'        =>'',
 	'DB_CHARSET'       =>'',
-	'PAGE_NUM'         =>10,
+	'PAGE_NUM'         =>15,
 );
 ?>
