@@ -73,4 +73,13 @@ function session($a=null,$b=null){
 	if($a == 'clear' and $b = null)
 		session_destroy();
 }
+class SpeekFrameWorkSqlite3DB extends SQLite3{
+	function __construct($name){
+		 $this->open(C('PRJ_COM').$name.'.db');
+	}
+}
+function SQ($name){
+	$db = new SpeekFrameWorkSqlite3DB($name);	
+	return $db;
+}
 ?>
