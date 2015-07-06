@@ -12,3 +12,12 @@ _P_				Website Public directory /ROOT/Public
 URL				入口文件  /ROOT/PRJ/index.php
 EXT				.php
 CEXT			.class.php
+
+
+Config 
+DB_HOST
+DB_USER			
+DB_PASS
+DB_NAME
+DB_PREFIX
+DB_CHARSET

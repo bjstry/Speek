@@ -82,4 +82,13 @@ function SQ($name){
 	$db = new SpeekFrameWorkSqlite3DB($name);	
 	return $db;
 }
+function VerifySession($a,$b){
+	$return = false;
+	if($a == $b){
+		$return = true;
+	}else{
+		$return = false;
+	}
+	return $return;
+}
 ?>

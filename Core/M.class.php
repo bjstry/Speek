@@ -142,6 +142,13 @@ class M{
 			}
 		}
 	}
+	//---SESSION会话验证---//
+	public function Session_Verify(){
+		if(false){
+		}else{
+			die('非法会话！');
+		}
+	}
 
 	//--分页函数--//
 	/*

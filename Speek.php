@@ -13,6 +13,7 @@
 	defined('ROOT') or define('ROOT',dirname($_SERVER['SCRIPT_NAME']));
 	defined('_P_') or define('_P_',dirname($_SERVER['SCRIPT_NAME']).'/Public');
 	defined('URL') or define('URL',$_SERVER['SCRIPT_NAME']);
+	defined('FILE') or define('FILE',dirname(__FILE__));
 	defined('EXT') or define('EXT','.php');
 	defined('CEXT') or define('CEXT','.class.php');
 	defined('SYS_CORE') or define('SYS_CORE',SYS.'/Core/');
