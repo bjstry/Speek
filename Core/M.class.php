@@ -3,10 +3,12 @@
  * 模块基类
  */
 class M{
-	protected $table = null;  //定义表前缀，如未设置调用系统默认
+	protected $table = null;  //存储表名
 	protected $where = null;  //存储定义条件
 	protected $order = null;  //存储定义排序
+	protected $primary = null;  //存储定义排序
 	protected $_verarr;       //存储自动验证数组
+	protected $orderType = 'desc';  //排序类型
 
 	//-----初始化数据库-----//
 	public function init($a){
@@ -14,7 +16,8 @@ class M{
 
 			//-----使用数组自定义连接数据库
 			$this->table = !empty($a['table'])?C('DB_PREFIX').strtolower($a['table']):'';
-			mysql_connect($a['host'],$a['user'],$a['pass']) or die('连接数据库失败！ - '.mysql_error());
+			mysql_connect($a['host'],$a['user'],$a['pass'],$a['dbname']) or die('连接数据库失败！ - '.mysql_error());
+			mysql_select_db($a['dbname']);
 		}else{
 
 			//-----调用配置文件连接数据库
@@ -22,11 +25,25 @@ class M{
 			$this->connect();
 			mysql_select_db(C('DB_NAME')) or die('选择数据库失败！ - '.mysql_error());
 		}
+		$this->getId();
 	}
+	//---测试函数：输出主键---//
+	public function sayId(){
+		echo $this->primary;
+	}
+	//---代替自带mysql_query---//
 	public function query($sql){
 		return mysql_query($sql);
 	}
-
+	//---获取主键---//
+	protected function getId(){
+		$query = $this->query("desc $this->table");
+		while($row = mysql_fetch_assoc($query)){
+			if($row['Key']=='PRI'){
+				$this->primary = $row['Field'];
+			}
+		}
+	}
 	//---调用配置文件连接数据库---//
 	protected function connect(){
 		mysql_connect(C('DB_HOST'),C('DB_USER'),C('DB_PASS')) or die('连接数据库失败！ - '.mysql_error());
@@ -48,7 +65,10 @@ class M{
 
 	//---追加排序条件---//
 	public function order($a=null){
-		$next = " order by ".$a." desc";
+		if($a == null){
+			$a = $this->primary;
+		}
+		$next = " order by ".$a." ".$this->orderType;
 		$this->order = $next;
 		$obj = $this;
 		return $obj;
@@ -78,7 +98,10 @@ class M{
 			echo '<br>SQL : '.$sqltrl;
 		return $row;
 	}
-	
+	//---查询所有---//
+	public function findAll(){
+		return $this->order()->select();
+	}	
 	//---多条查询函数---//
 	public function select($a=null,$b=null){
 		//--$a 查询数量，默认查询所有--//
