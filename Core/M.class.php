@@ -3,11 +3,11 @@
  * 模块基类
  */
 class M{
-	protected $table = null;  //存储表名
-	protected $where = null;  //存储定义条件
-	protected $order = null;  //存储定义排序
+	protected $table = null;    //存储表名
+	protected $where = null;    //存储定义条件
+	protected $order = null;    //存储定义排序
 	protected $primary = null;  //存储定义排序
-	protected $_verarr;       //存储自动验证数组
+	protected $_verarr;         //存储自动验证数组
 	protected $orderType = 'desc';  //排序类型
 
 	//-----初始化数据库-----//
@@ -62,7 +62,12 @@ class M{
 		$obj = $this;
 		return $obj;
 	}
-
+	//---设置排序类型---//
+	public function orderType($a=null){
+		if(!$a==null){
+			$this->orderType = 'asc';
+		}
+	}
 	//---追加排序条件---//
 	public function order($a=null){
 		if($a == null){
@@ -128,6 +133,7 @@ class M{
 		}
 		return $row; //返回查询结果二维数组
 	}
+	//---插入函数---//
 	public function insert($a=null,$b=null){
 		$sql=null;
 		if(is_null($b)){
@@ -139,10 +145,18 @@ class M{
 		$query = $this->query($sql) or die('Insert error - '.mysql_error().'<br>SQL : '.$sql);
 		return mysql_insert_id();
 	}
+	//---更新函数---//
 	public function update($a=null){
 		$where = $this->where;
 		$sql = "update `$this->table` set $a$where";
 		$query = $this->query($sql) or die('Update error - '.mysql_error().'<br>SQL : '.$sql);
+		return $query;
+	}
+	//---删除函数---//
+	public function delete(){
+		$where = $this->where;
+		$sql = "delete from `$this->table` $where";
+		$query = $this->query($sql) or die('Delete error - '.mysql_error().'<br>SQL : '.$sql);
 		return $query;
 	}
 	public function fetch($a){
@@ -165,6 +179,15 @@ class M{
 			}
 		}
 	}
+	//---统计数据条数---//
+	public function count($where=null){
+		if(!$where==null){
+			$this->where = " where ".$where;
+		}
+		$row = null;
+		$row = $this->fetch($this->query("select count(*) from $this->table".$this->where));
+		return $row[0];
+	}
 	//---SESSION会话验证---//
 	public function Session_Verify(){
 		if(false){
@@ -184,11 +207,12 @@ class M{
 	public function page($count=null,$nums=null,$key=null,$val=null,$url=null){
 		//总条数，为空则自动统计数据库内总条数
 		if($count == null){
-			$jin = $this->fetch($this->query("select count(*) from $this->table".$this->where));
-			$count = $jin[0];
+			//$jin = $this->fetch($this->query("select count(*) from $this->table".$this->where));
+			//$count = $jin[0];
+			$count = $this->count();
 
 		}
-		//单页条数为空则调用配置文件 默认为10 
+		//单页条数为空则调用配置文件 默认为15 
 		if($nums==null){
 			$nums=C('PAGE_NUM');
 		}
@@ -243,6 +267,7 @@ class M{
 				<li $leftout><span><i class='uk-icon-angle-double-left'></i></span></li>
 				".$content."
 				<li $rightout><a href='$url/$key/".($nowpage+1)."'><i class='uk-icon-angle-double-right'></i></a></li>
+				<li><a href='$url'>返回</a></li>
 			</ul>";
 		}else if($nowpage == $pages){
 			$pageout = "
@@ -250,6 +275,7 @@ class M{
 				<li $leftout><a href='$url/$key/".($nowpage-1)."'><i class='uk-icon-angle-double-left'></i></a></li>
 				".$content."
 				<li $rightout><span><i class='uk-icon-angle-double-right'></i></span></li>
+				<li><a href='$url'>返回</a></li>
 			</ul>";
 		}else{
 			$pageout = "
@@ -257,6 +283,7 @@ class M{
 				<li $leftout><a href='$url/$key/".($nowpage-1)."'><i class='uk-icon-angle-double-left'></i></a></li>
 				".$content."
 				<li $rightout><a href='$url/$key/".($nowpage+1)."'><i class='uk-icon-angle-double-right'></i></a></li>
+				<li><a href='$url'>返回</a></li>
 			</ul>";
 		}
 		$rtarr = array($rows,$pageout);

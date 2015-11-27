@@ -22,14 +22,15 @@ Runtime File	PRJ/T_c
 二 模块
 init([args]);
 初始化函数，连接数据库，参数为库名或者完整连接数据库信息。
-examples:
-$model->init('user'); 
-//根据配置文件连接数据库，库名为前缀加user
-examples:
-$model->init(array('host'=>'localhost','user'=>'user','pass'='',‘dbname’=>'dbname','table'=>'table'));
-//根据数组连接数据库，主机localhost,用户名user,密码空,使用dbname库操作table表
+ examples:
+ $model->init('user'); 
+ //根据配置文件连接数据库，库名为前缀加user
+ examples:
+ $model->init(array('host'=>'localhost','user'=>'user','pass'='',‘dbname’=>'dbname','table'=>'table'));
+ //根据数组连接数据库，主机localhost,用户名user,密码空,使用dbname库操作table表
 
-
+orderType(1);
+设置排序类型，1为asc倒序排列，默认为null,desc主键从大到小顺序排列
 query();
 函数，等于mysql_query();
 

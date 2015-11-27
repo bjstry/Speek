@@ -91,4 +91,7 @@ function VerifySession($a,$b){
 	}
 	return $return;
 }
+function Redircet($text='非法访问！',$type='danger',$url='/index.php'){
+	echo "<script>UIkit.notify({message:'".$text."',status:'".$type."',timeout:2000,pos:'top-center'});setTimeout(\"location.href='".$url."'\",2000);</script>";
+}
 ?>
