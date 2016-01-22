@@ -225,7 +225,7 @@ class M{
 			$val = $_GET['pid'];
 		}
 		//分页URL地址，默认自动获取
-		$url = empty($url)?$_SERVER['SCRIPT_NAME'].'/index/index':$url; //获取url
+		$url = empty($url)?$_SERVER['SCRIPT_NAME'].'/'.$_GET['c'].'/'.$_GET['m'].'':$url; //获取url
 		$rtarr;           //返回数组
 		$nowpage = 1;     //默认当前页
 		$leftstatus = 0;  //上一页是否激活
