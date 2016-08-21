@@ -14,7 +14,7 @@ function C($name=null,$value=null){
 			$name=strtolower($name);
 			if(is_null($value))
 				return isset($_conf[$name])?$_conf[$name]:null;
-			$_conf[$name]=$vlaue;
+			$_conf[$name]=$value;
 			echo $_conf[$name];
 			return;
 		}
