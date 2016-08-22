@@ -63,14 +63,21 @@ function D($a){
 
 //-----session方法：设置或获取session值
 function session($a=null,$b=null){
+	//如果第二个参数为空则表示取值
 	if(is_null($b)){
 		$resut = isset($_SESSION[$a])?$_SESSION[$a]:null;
 		return $resut;
 	}
+
+	//如果第二参数有非空值则设置值
 	$_SESSION[$a] = $b;
+
+	//如果第二参数位Null,则注销该session值
 	if($b == 'null')
 		unset($_SESSION[$a]);
-	if($a == 'clear' and $b = null)
+
+	//如果第一个参数如clean,第二个参数位null则注销整个session
+	if($a == 'clean' and $b == null)
 		session_destroy();
 }
 class SpeekFrameWorkSqlite3DB extends SQLite3{
