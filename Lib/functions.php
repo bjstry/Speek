@@ -91,10 +91,12 @@ function SQ($name){
 }
 function VerifySession($a,$b){
 	$return = false;
-	if($a == $b){
-		$return = true;
-	}else{
-		$return = false;
+	if(isset($_SESSION[$a])){
+		if($a == $b){
+			$return = true;
+		}else{
+			$return = false;
+		}
 	}
 	return $return;
 }
