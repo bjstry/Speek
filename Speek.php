@@ -11,7 +11,12 @@
 	defined('SYS') or define('SYS',__DIR__);
 	defined('PRJ') or define('PRJ',dirname($_SERVER['SCRIPT_FILENAME']).'/SpeekHome');
 	defined('ROOT') or define('ROOT',dirname($_SERVER['SCRIPT_NAME']));
-	defined('_P_') or define('_P_',dirname($_SERVER['SCRIPT_NAME']).'/Public');
+	if(dirname($_SERVER['SCRIPT_NAME'])=='/'){
+		define('_P_',dirname($_SERVER['SCRIPT_NAME']).'Public');
+	}else{
+		define('_P_',dirname($_SERVER['SCRIPT_NAME']).'/Public');
+	}
+	//defined('_P_') or define('_P_',dirname($_SERVER['SCRIPT_NAME']).'Public');
 	defined('URL') or define('URL',$_SERVER['SCRIPT_NAME']);
 	defined('FILE') or define('FILE',dirname(__FILE__));
 	defined('EXT') or define('EXT','.php');
