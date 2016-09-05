@@ -10,6 +10,7 @@ class Speek{
 		Speek::CreateDir();                         //创建必要目录
 		set_error_handler('Speek::GetError');       //注册错误处理函数
 		Speek::GetCm();                             //定位控制器
+		Speek::CreateFile($_GET['c'],$_GET['m']);   //创建初始化类文件
 		Speek::LoadFile($_GET['c'],$_GET['m']);     //启动控制器，控制器接管程序
 	}
 	//-----自动加载类方法
@@ -91,6 +92,17 @@ class Speek{
 			include C('PRJ_COM').'functions'.EXT;
 		}
 		C('REWRITE')?define('R',ROOT):define('R',URL);
+	}
+	private static function CreateFile($c,$m){
+		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;
+		if(!file_exists($cfile)){
+			$file = fopen($cfile,'w');
+			$content = "<?php\nclass ".ucfirst($c).C('DT_C_NAME')." extends ".C('DT_C_NAME')."{\n\tpublic function ".ucfirst($m)."(){\n\t\techo 'Hello,Speeker!';\n\t}\n}";
+			fwrite($file,$content);
+			fclose($file);
+		}else{
+			echo '创建初始化控制器失败！';
+		}
 	}
 	//-----加载控制器、控制器接管程序
 	private static function LoadFile($c,$m){
