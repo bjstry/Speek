@@ -93,15 +93,21 @@ class Speek{
 		}
 		C('REWRITE')?define('R',ROOT):define('R',URL);
 	}
+	//-----创建初始化文件
 	private static function CreateFile($c,$m){
 		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;
+		$vfile = C('PRJ_VDIR').C('DT_THEME').'/'.ucfirst($c).ucfirst($m).C('DT_V_EXT');
 		if(!file_exists($cfile)){
 			$file = fopen($cfile,'w');
-			$content = "<?php\nclass ".ucfirst($c).C('DT_C_NAME')." extends ".C('DT_C_NAME')."{\n\tpublic function ".ucfirst($m)."(){\n\t\techo 'Hello,Speeker!';\n\t}\n}";
+			$content = "<?php\nclass ".ucfirst($c).C('DT_C_NAME')." extends ".C('DT_C_NAME')."{\n\tpublic function ".ucfirst($m)."(){\n\t\t".'$this->display'."();\n\t}\n}";
 			fwrite($file,$content);
 			fclose($file);
-		}else{
-			echo '创建初始化控制器失败！';
+		}
+		if(!file_exists($vfile)){
+			$file = fopen($vfile,'w');
+			$content = "<p>那一夜，花非花，雨非雨.</p>";
+			fwrite($file,$content);
+			fclose($file);
 		}
 	}
 	//-----加载控制器、控制器接管程序
