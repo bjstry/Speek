@@ -105,7 +105,7 @@ class Speek{
 		}
 		if(!file_exists($vfile)){
 			$file = fopen($vfile,'w');
-			$content = "<p>那一夜，花非花，雨非雨.</p>";
+			$content = "<p>Now it's your turn to change the world.</p>";
 			fwrite($file,$content);
 			fclose($file);
 		}
