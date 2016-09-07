@@ -95,8 +95,8 @@ class Speek{
 	}
 	//-----创建初始化文件
 	private static function CreateFile($c,$m){
-		$cfile = C('PRJ_CDIR').$c.C('DT_C_NAME').CEXT;
-		$vfile = C('PRJ_VDIR').C('DT_THEME').'/'.ucfirst($c).ucfirst($m).C('DT_V_EXT');
+		$cfile = C('PRJ_CDIR').C('DT_CONTROLLER').C('DT_C_NAME').CEXT;
+		$vfile = C('PRJ_VDIR').C('DT_THEME').'/'.C('DT_CONTROLLER').C('DT_ACTION').C('DT_V_EXT');
 		if(!file_exists($cfile)){
 			$file = fopen($cfile,'w');
 			$content = "<?php\nclass ".ucfirst($c).C('DT_C_NAME')." extends ".C('DT_C_NAME')."{\n\tpublic function ".ucfirst($m)."(){\n\t\t".'$this->display'."();\n\t}\n}";
@@ -105,7 +105,7 @@ class Speek{
 		}
 		if(!file_exists($vfile)){
 			$file = fopen($vfile,'w');
-			$content = "<p>Now it's your turn to change the world.</p>";
+			$content = "<p>Now, It's your turn to change the world.</p>";
 			fwrite($file,$content);
 			fclose($file);
 		}
