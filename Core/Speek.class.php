@@ -41,6 +41,7 @@ class Speek{
 		if(!file_exists(C('PRJ_COM'))) mkdir(C('PRJ_COM'));
 		if(!file_exists(C('PRJ_CONF'))) mkdir(C('PRJ_CONF'));
 		if(!file_exists(C('PRJ_LOG'))) mkdir(C('PRJ_LOG'));
+		defined('THEME') or define('THEME',_P_.'/'.C('DT_THEME'));
 	}
 	//-----定位控制器
 	private static function GetCm(){

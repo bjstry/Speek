@@ -21,7 +21,6 @@ class C{
 			if($a==null){
 				exit('参数非法:'.$a.' 不能为空');
 			}else{
-				//echo 'ok2';
 				$this->view->assign($a,$b);
 			}
 		}
