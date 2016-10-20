@@ -76,8 +76,8 @@ function session($a=null,$b=null){
 	if($b == 'null')
 		unset($_SESSION[$a]);
 
-	//如果第一个参数如clean,第二个参数位null则注销整个session
-	if($a == 'clean' and $b == null)
+	//如果第一个参数如clean,第二个参数为null则注销整个session
+	if($a == 'clean' and $b == 'all')
 		session_destroy();
 }
 class SpeekFrameWorkSqlite3DB extends SQLite3{
