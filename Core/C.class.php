@@ -7,9 +7,9 @@ class C{
 	//protected $model = null;
 	public function __construct(){
 		$this->view = new V();
-		$this->init();
+		$this->Speekinit();
 	}
-	public function init(){
+	public function Speekinit(){
 		//-----预加载函数
 	}
 	//-----模版参数传递函数
