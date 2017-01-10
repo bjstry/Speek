@@ -4,10 +4,17 @@
  */
 class C{
 	protected $view = null;
+	protected $_arrinit;
 	//protected $model = null;
 	public function __construct(){
 		$this->view = new V();
-		$this->Speekinit();
+		if(empty($this->_arrinit)){
+			$this->Speekinit();
+		}else{
+			if(!in_array($_GET['m'],$this->_arrinit)){
+				$this->Speekinit();
+			}
+		}
 	}
 	public function Speekinit(){
 		//-----预加载函数
