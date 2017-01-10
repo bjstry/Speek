@@ -7,6 +7,10 @@ class C{
 	//protected $model = null;
 	public function __construct(){
 		$this->view = new V();
+		$this->init();
+	}
+	public function init(){
+		//-----预加载函数
 	}
 	//-----模版参数传递函数
 	protected function assign($a=null,$b=null){
