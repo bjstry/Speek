@@ -87,7 +87,11 @@ class Speek{
 	private static function LoadConf(){
 		if(is_file(SYS_CONF.'Config'.EXT)){
 			C(include(SYS_CONF.'Config'.EXT));
-			is_file(C('PRJ_CONF').'Config'.EXT)?C(array_merge(include(SYS_CONF.'Config'.EXT),include(C('PRJ_CONF').'Config'.EXT))):C(include(SYS_CONF.'Config'.EXT));
+			if(is_file(C('PRJ_CONF').'Config'.EXT)){
+				C(array_change_key_case(include(C('PRJ_CONF').'Config'.EXT),CASE_UPPER)+include(SYS_CONF.'Config'.EXT));
+			}else{
+				C(include(SYS_CONF.'Config'.EXT));
+			}
 		}
 		if(is_file(C('PRJ_COM').'functions'.EXT)){
 			include C('PRJ_COM').'functions'.EXT;

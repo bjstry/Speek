@@ -3,6 +3,14 @@
  * 系统公共函数库，全局调用
  */
  
+ //-----saveConfig 方法 保存配置值到配置文件中
+function saveConfig(){
+	if(file_put_contents(C('PRJ_CONF').'Config.php',"<?php \nreturn ".var_export(array_change_key_case(C(),CASE_UPPER),true).";\n?>")){
+		//echo '保存成功！';
+	}else{
+		exit('操作失败!');
+	}
+}
  //-----C方法 获取和设置配置
 function C($name=null,$value=null){
 	static $_conf = array();
@@ -11,11 +19,11 @@ function C($name=null,$value=null){
 	}
 	if(is_string($name)){
 		if(!strpos($name,'.')){
-			$name=strtolower($name);
+			//$name=strtolower($name);
 			if(is_null($value))
 				return isset($_conf[$name])?$_conf[$name]:null;
 			$_conf[$name]=$value;
-			echo $_conf[$name];
+			//echo $_conf[$name];
 			return;
 		}
 		$name = explode('.',$name);
@@ -26,7 +34,7 @@ function C($name=null,$value=null){
 		return;
 	}
 	if(is_array($name)){
-		return $_conf = array_merge($_conf,array_change_key_case($name));
+		return $_conf = array_change_key_case($name,CASE_UPPER) + $_conf;
 	}
 	return null;
 }

@@ -13,11 +13,15 @@ class M{
 	//-----初始化数据库-----//
 	public function init($a){
 		if(is_array($a)){
-
+			//print_r($a);
 			//-----使用数组自定义连接数据库
 			$this->table = !empty($a['table'])?C('DB_PREFIX').strtolower($a['table']):'';
 			mysql_connect($a['host'],$a['user'],$a['pass'],$a['dbname']) or die('连接数据库失败！ - '.mysql_error());
-			mysql_select_db($a['dbname']);
+			if(mysql_select_db($a['dbname'])){
+				mysql_select_db($a['dbname']);
+			}else{
+				exit('没有数据库: '.$a['dbname']);
+			}
 		}else{
 
 			//-----调用配置文件连接数据库
