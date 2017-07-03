@@ -5,6 +5,7 @@
 class M{
 	protected $table = null;    //存储表名
 	protected $where = null;    //存储定义条件
+	protected $limit = null;    //存储定义条件
 	protected $order = null;    //存储定义排序
 	protected $primary = null;  //存储定义排序
 	protected $_verarr;         //存储自动验证数组
@@ -227,6 +228,64 @@ class M{
 		$val   分页GET值，当前页
 		$url   当前页面地址或者分页页面地址
 	**/
+	public function pageint($count=null,$nums=null,$key=null,$val=null){
+		if($count == null){
+			$count = $this->count();
+		}
+		if($nums == null){
+			$nums = C('PAGE_NUM');
+		}
+		if($key == null){
+			$key = 'page';
+		}
+		if($val == null){
+			if(empty($_GET[$key])){
+				$_GET[$key] = 1;
+			}
+			$val = $_GET[$key];
+		}
+		$result;  //返回数组
+		$pgstatus; //当前页状态
+		//获取分页数
+		$pages = ceil($count/$nums);
+		//获取前置后置状态
+		if($val == 1 ){
+			$result['pre']['url'] = '';
+			$result['nex']['url'] = '';
+			if($val < $pages){
+				$result['nex']['url'] = $val + 1;
+			}
+		}else{
+			$result['pre']['url'] = $val - 1;
+			$result['nex']['url'] = '';
+			if($val < $pages){
+				$result['nex']['url'] = $val + 1;
+			}
+		}
+		//获取分页主体
+		for($i=1;$i<=$pages;$i++){
+			if($pages > 5){
+				if($i <= $val+2 and $i >= $val-2){
+					if($i == $val){
+						$pgstatus = 'active';
+					}else{
+						$pgstatus = '';
+					}
+					$result['con'][] = array($pgstatus,$i);
+				}
+			}else{
+				if($i == $val){
+					$pgstatus = 'active';
+				}else{
+					$pgstatus = '';
+				}
+				$result['con'][] = array($pgstatus,$i);	
+			}
+		}
+
+		//返回分页数组
+		return $result;
+	}
 	public function page($count=null,$nums=null,$key=null,$val=null,$url=null){
 		//总条数，为空则自动统计数据库内总条数
 		if($count == null){
