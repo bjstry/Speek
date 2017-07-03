@@ -9,6 +9,7 @@ class M{
 	protected $primary = null;  //存储定义排序
 	protected $_verarr;         //存储自动验证数组
 	protected $orderType = 'desc';  //排序类型
+	public $_data;           //数据库结构映射
 
 	//-----初始化数据库-----//
 	public function init($a){
@@ -16,18 +17,21 @@ class M{
 			//print_r($a);
 			//-----使用数组自定义连接数据库
 			$this->table = !empty($a['table'])?C('DB_PREFIX').strtolower($a['table']):'';
-			mysql_connect($a['host'],$a['user'],$a['pass'],$a['dbname']) or die('连接数据库失败！ - '.mysql_error());
-			if(mysql_select_db($a['dbname'])){
-				mysql_select_db($a['dbname']);
-			}else{
-				exit('没有数据库: '.$a['dbname']);
+			mysql_connect($a['host'],$a['user'],$a['pass']) or die('连接数据库失败！ - '.mysql_error());
+			if(isset($a['dbname'])){
+				mysql_select_db($a['dbname']) or exit('没有数据库: '.$a['dbname']);
 			}
 		}else{
-
 			//-----调用配置文件连接数据库
 			$this->table = C('DB_PREFIX').strtolower($a);
 			$this->connect();
 			mysql_select_db(C('DB_NAME')) or die('选择数据库失败！ - '.mysql_error());
+			$redatare = $this->query("desc ".$this->table);
+			while($redata = mysql_fetch_array($redatare)){
+				$this->_data['field'][] = $redata['Field'];
+				$this->_data['type'][] = $redata['Type'];
+				$this->_data['extra'][] = $redata['Extra'];
+			}
 		}
 		$this->getId();
 	}
@@ -66,20 +70,35 @@ class M{
 		$obj = $this;
 		return $obj;
 	}
+	//---追加设置table---//
+	public function table($a=null){
+		$this->table = C('DB_PREFIX').strtolower($a);
+		$obj = $this;
+		return $obj;
+	}
 	//---设置排序类型---//
 	public function orderType($a=null){
 		if(!$a==null){
 			$this->orderType = 'asc';
 		}
+		$obj = $this;
+		return $obj;
 	}
 	//---追加排序条件---//
 	public function order($a=null){
 		if($a == null){
 			$a = $this->primary;
 		}
-		$next = " order by ".$a." ".$this->orderType;
-		$this->order = $next;
-		$obj = $this;
+		if(is_array($a)){
+			$this->orderType = $a[1];
+			$next = " order by ".$a[0]." ".$this->orderType;
+			$this->order = $next;
+			$obj = $this;
+		}else{
+			$next = " order by ".$a." ".$this->orderType;
+			$this->order = $next;
+			$obj = $this;
+		}
 		return $obj;
 	}
 
@@ -103,8 +122,8 @@ class M{
 		}else{
 			$row = $this->fetch($query);
 		}
-		if(empty($row))
-			echo '<br>SQL : '.$sqltrl;
+		//if(empty($row))
+			//echo '<br>SQL : '.$sqltrl;
 		return $row;
 	}
 	//---查询所有---//
@@ -292,6 +311,11 @@ class M{
 		}
 		$rtarr = array($rows,$pageout);
 		return $rtarr;
+	}
+	public function Login($arr=null){
+		if($arr == null){
+			$arr = $_POST;
+		}
 	}
 }
 ?>

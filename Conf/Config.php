@@ -23,6 +23,7 @@ return array(
 	'PRJ_VDIR'         =>PRJ.'/T/',
 	'PRJ_VCDIR'        =>PRJ.'/T_c/',
 	'PRJ_VCACHE'       =>PRJ.'/T_cache/',
+	'PRJ_MOD'          =>PRJ.'/modules/',
 	'DT_V_LEFT'        =>'{',
 	'DT_V_RIGHT'       =>'}',
 	'DB_HOST'          =>'',

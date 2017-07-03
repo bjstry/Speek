@@ -4,11 +4,19 @@
  */
  
  //-----saveConfig 方法 保存配置值到配置文件中
-function saveConfig(){
-	if(file_put_contents(C('PRJ_CONF').'Config.php',"<?php \nreturn ".var_export(array_change_key_case(C(),CASE_UPPER),true).";\n?>")){
-		//echo '保存成功！';
+function saveConfig($file=null){
+	if(!empty($file)){
+		if(file_put_contents($file,"<?php \nreturn ".var_export(array_change_key_case(C(),CASE_UPPER),true).";\n?>")){
+			//...
+		}else{
+			exit('操作失败!1');
+		}
 	}else{
-		exit('操作失败!');
+		if(file_put_contents(C('PRJ_CONF').'Config.php',"<?php \nreturn ".var_export(array_change_key_case(C(),CASE_UPPER),true).";\n?>")){
+			//echo '保存成功！';
+		}else{
+			exit('操作失败!');
+		}
 	}
 }
  //-----C方法 获取和设置配置
@@ -110,5 +118,10 @@ function VerifySession($a,$b){
 }
 function Redircet($text='非法访问！',$type='danger',$url='/index.php'){
 	echo "<script>UIkit.notify({message:'".$text."',status:'".$type."',timeout:2000,pos:'top-center'});setTimeout(\"location.href='".$url."'\",2000);</script>";
+}
+function getFieldValue($table,$key,$rekey){
+	$tablerow = M($table);
+	$return = $tablerow->where("$key[0]='$key[1]'")->find($rekey);
+	return $return[$rekey];
 }
 ?>
