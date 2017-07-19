@@ -56,7 +56,7 @@ class M{
 	//---调用配置文件连接数据库---//
 	protected function connect(){
 		mysql_connect(C('DB_HOST'),C('DB_USER'),C('DB_PASS')) or die('连接数据库失败！ - '.mysql_error());
-		$this->query('set names '.C('DB_CHARSET'));
+		$this->query('set names '.C('DT_CHARSET'));
 	}
 
 	//---追加处理条件---//
