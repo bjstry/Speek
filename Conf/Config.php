@@ -26,6 +26,7 @@ return array(
 	'PRJ_MOD'          =>PRJ.'/modules/',
 	'DT_V_LEFT'        =>'{',
 	'DT_V_RIGHT'       =>'}',
+	'DB_MODE'          =>'default',      //default  mysql mysqli pdo
 	'DB_HOST'          =>'',
 	'DB_NAME'          =>'',
 	'DB_USER'          =>'',
