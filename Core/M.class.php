@@ -3,7 +3,12 @@
  * 模块基类
  */
 class M{
+<<<<<<< HEAD
 	protected $mode = null;     //连接数据库方式  1 mysql 2 mysqli 3 pdo
+=======
+	protected $mode = 1;     //连接数据库方式  1 mysql 2 mysqli 3 pdo
+	protected $mysql = null;
+>>>>>>> 1b8aeea2c0542a8076144324aac84646d2e7c361
 	protected $table = null;    //存储表名
 	protected $where = null;    //存储定义条件
 	protected $limit = null;    //存储定义条件
@@ -32,20 +37,37 @@ class M{
 		if(is_array($a)){
 			//-----使用数组自定义连接数据库
 			$this->table = !empty($a['table'])?C('DB_PREFIX').strtolower($a['table']):'';
-			mysql_connect($a['host'],$a['user'],$a['pass']) or die('连接数据库失败！ - '.mysql_error());
+			if($this->mode == 1){
+				mysql_connect($a['host'],$a['user'],$a['pass']) or die('连接数据库失败！ - '.mysql_error());
+			}else if($this->mode == 2){
+			}else if($this->mode == 3){
+			
+			}
 			if(isset($a['dbname'])){
 				mysql_select_db($a['dbname']) or exit('没有数据库: '.$a['dbname']);
 			}
 		}else{
 			//-----调用配置文件连接数据库
 			$this->table = C('DB_PREFIX').strtolower($a);
-			$this->connect();
-			mysql_select_db(C('DB_NAME')) or die('选择数据库失败！ - '.mysql_error());
-			$redatare = $this->query("desc ".$this->table);
-			while($redata = mysql_fetch_array($redatare)){
-				$this->_data['field'][] = $redata['Field'];
-				$this->_data['type'][] = $redata['Type'];
-				$this->_data['extra'][] = $redata['Extra'];
+			$this->mysql = $this->connect();
+			if($this->mode == 3){
+				$redatare = $this->query("desc ".$this->table);
+				while($redata = mysql_fetch_array($redatare)){
+					$this->_data['field'][] = $redata['Field'];
+					$this->_data['type'][] = $redata['Type'];
+					$this->_data['extra'][] = $redata['Extra'];
+				}
+				//echo '1ok<br>';
+			}else if($this->mode == 2){
+				//echo '1ok2<br>';
+			}else{
+				mysql_select_db(C('DB_NAME')) or die('选择数据库失败！ - '.mysql_error());
+				$redatare = $this->query("desc ".$this->table);
+				while($redata = mysql_fetch_array($redatare)){
+					$this->_data['field'][] = $redata['Field'];
+					$this->_data['type'][] = $redata['Type'];
+					$this->_data['extra'][] = $redata['Extra'];
+				}
 			}
 		}
 		$this->getId();
@@ -56,14 +78,28 @@ class M{
 	}
 	//---代替自带mysql_query---//
 	public function query($sql){
-		return mysql_query($sql);
+		if($this->mode == 3){
+			return $this->mysql->query($sql);
+		}else if($this->mode == 2){
+		}else{
+			return mysql_query($sql);
+		}
 	}
 	//---获取主键---//
 	protected function getId(){
 		$query = $this->query("desc $this->table");
-		while($row = mysql_fetch_assoc($query)){
-			if($row['Key']=='PRI'){
-				$this->primary = $row['Field'];
+		if($this->mode == 3){
+			while($row = $query->fetch(PDO::FETCH_ASSOC)){
+				if($row['Key']=='PRI'){
+					$this->primary = $row['Field'];
+				}
+			}
+			//echo '2ok<br>';
+		}else{
+			while($row = mysql_fetch_assoc($query)){
+				if($row['Key']=='PRI'){
+					$this->primary = $row['Field'];
+				}
 			}
 		}
 	}
@@ -76,12 +112,24 @@ class M{
 		
 		}else if($this->mode == 3){
 			try {
+<<<<<<< HEAD
 				$pdo = new PDO("mysql:host=C('DB_HOST');dbname=C('DB_NAME')","C('DB_USER')","C('DB_PASS')");
+=======
+				$dbhost = C('DB_HOST');
+				$dbname = C('DB_NAME');
+				$dbuser = C('DB_USER');
+				$dbpass = C('DB_PASS');
+				$pdo = new PDO("mysql:host=$dbhost;dbname=$dbname","$dbuser","$dbpass");
+>>>>>>> 1b8aeea2c0542a8076144324aac84646d2e7c361
 			} catch (PDOException $e){
 				echo 'Connection failed: '.$e->getMessage();
 			}
 			$pdo->query('set names '.C('DT_CHARSET'));
+<<<<<<< HEAD
 			echo 1;
+=======
+			return $pdo;
+>>>>>>> 1b8aeea2c0542a8076144324aac84646d2e7c361
 		}
 	}
 
@@ -210,7 +258,13 @@ class M{
 		return $query;
 	}
 	public function fetch($a){
-		return mysql_fetch_array($a);
+		if($this->mode == 1){
+			return mysql_fetch_array($a);
+		}else if($this->mode == 2){
+		}else if($this->mode == 3){
+			return $a->fetch();
+			//echo '3ok<br>';
+		}
 	}
 	
 	//---自动验证函数---//
