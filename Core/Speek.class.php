@@ -132,9 +132,9 @@ class Speek{
 		if(!method_exists($pram,$m)){
 			exit('接口未定义！');
 		}
-		if(is_callable('globeinit')){
-			globeinit();
-		}
+		//if(is_callable('globeinit')){
+			//globeinit();
+		//}
 		$pram->$m();
 	}
 }

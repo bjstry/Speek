@@ -3,12 +3,9 @@
  * 模块基类
  */
 class M{
-<<<<<<< HEAD
 	protected $mode = null;     //连接数据库方式  1 mysql 2 mysqli 3 pdo
-=======
 	protected $mode = 1;     //连接数据库方式  1 mysql 2 mysqli 3 pdo
 	protected $mysql = null;
->>>>>>> 1b8aeea2c0542a8076144324aac84646d2e7c361
 	protected $table = null;    //存储表名
 	protected $where = null;    //存储定义条件
 	protected $limit = null;    //存储定义条件

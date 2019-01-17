@@ -17,6 +17,7 @@ class C{
 		}
 	}
 	public function Speekinit(){
+		echo 1;
 		//-----预加载函数
 		//if(!empty($_SESSION['dttheme'])){
 		//	C('DT_THEME',$_SESSION['dttheme']);
