@@ -18,6 +18,9 @@ class C{
 	}
 	public function Speekinit(){
 		//-----预加载函数
+		//if(!empty($_SESSION['dttheme'])){
+		//	C('DT_THEME',$_SESSION['dttheme']);
+		//}
 	}
 	//-----模版参数传递函数
 	protected function assign($a=null,$b=null){

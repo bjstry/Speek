@@ -3,6 +3,7 @@
  * 模块基类
  */
 class M{
+	protected $mode = null;     //连接数据库方式  1 mysql 2 mysqli 3 pdo
 	protected $table = null;    //存储表名
 	protected $where = null;    //存储定义条件
 	protected $limit = null;    //存储定义条件
@@ -12,10 +13,23 @@ class M{
 	protected $orderType = 'desc';  //排序类型
 	public $_data;           //数据库结构映射
 
-	//-----初始化数据库-----//
+	//-----初始化数据库连接-----//
 	public function init($a){
+		if(C('DB_MODE') == 'mysql'){
+			$this->mode = 1;    //使用传统mysql连接方式
+		}else if(C('DB_MODE') == 'mysqli'){
+			$this->mode = 2;    //使用mysqli连接方式
+		}else if(C('DB_MODE') == 'pdo'){
+			$this->mode = 3;    //使用pdo连接方式
+		}else if(C('DB_MODE') == 'default'){
+			$phpversion = phpversion();  //根据php版本自动选择
+			if($phpversion >=7){
+				$this->mode = 3;
+			}else{
+				$this->mode = 1;
+			}
+		}
 		if(is_array($a)){
-			//print_r($a);
 			//-----使用数组自定义连接数据库
 			$this->table = !empty($a['table'])?C('DB_PREFIX').strtolower($a['table']):'';
 			mysql_connect($a['host'],$a['user'],$a['pass']) or die('连接数据库失败！ - '.mysql_error());
@@ -55,8 +69,20 @@ class M{
 	}
 	//---调用配置文件连接数据库---//
 	protected function connect(){
-		mysql_connect(C('DB_HOST'),C('DB_USER'),C('DB_PASS')) or die('连接数据库失败！ - '.mysql_error());
-		$this->query('set names '.C('DT_CHARSET'));
+		if($this->mode == 1){
+			mysql_connect(C('DB_HOST'),C('DB_USER'),C('DB_PASS')) or die('连接数据库失败！ - '.mysql_error());
+			$this->query('set names '.C('DT_CHARSET'));
+		}else if($this->mode == 2){
+		
+		}else if($this->mode == 3){
+			try {
+				$pdo = new PDO("mysql:host=C('DB_HOST');dbname=C('DB_NAME')","C('DB_USER')","C('DB_PASS')");
+			} catch (PDOException $e){
+				echo 'Connection failed: '.$e->getMessage();
+			}
+			$pdo->query('set names '.C('DT_CHARSET'));
+			echo 1;
+		}
 	}
 
 	//---追加处理条件---//
