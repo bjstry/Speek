@@ -55,7 +55,7 @@ function M($a){
 }
 
 //-----D方法:模块加载
-function D($a){
+function D($a,$b=null){
 	if(empty($a)){
 		echo '模块名未定义！';
 		exit();
@@ -72,7 +72,11 @@ function D($a){
 		die('模块:'.$a.'-未定义!');
 		exit();
 	}
-	$obj = new $class;
+	if($b == null){
+		$obj = new $class;
+	}else{
+		$obj = new $class($b);
+	}
 	$obj->init($a);
 	return $obj;
 }

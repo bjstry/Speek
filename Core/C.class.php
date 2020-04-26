@@ -42,7 +42,9 @@ class C{
 			//echo C('PRJ_VDIR').C('DT_THEME').'/theme/head'.C('DT_V_EXT');
 			$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/theme/head'.C('DT_V_EXT'));
 		if(is_file(C('PRJ_VDIR').C('DT_THEME').'/theme/'.$_GET['c'].C('DT_V_EXT')))
-			$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/theme/'.$_GET['c'].C('DT_V_EXT'));
+				if(empty($b)){
+					$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/theme/'.$_GET['c'].C('DT_V_EXT'));
+				}
 		$type = empty($a)?1:0;
 		if($type == 1){
 			$err = is_file(C('PRJ_VDIR').C('DT_THEME').'/'.$_GET['c'].$_GET['m'].C('DT_V_EXT'))?$this->view->display(C('PRJ_VDIR').C('DT_THEME').'/'.$_GET['c'].$_GET['m'].C('DT_V_EXT'),$b,$c):1;

@@ -228,7 +228,7 @@ class M{
 		$val   分页GET值，当前页
 		$url   当前页面地址或者分页页面地址
 	**/
-	public function pageint($count=null,$nums=null,$key=null,$val=null){
+	public function pageint($count=null,$nums=null,$key=null,$val=null,$pgkey=null){
 		if($count == null){
 			$count = $this->count();
 		}
@@ -243,6 +243,9 @@ class M{
 				$_GET[$key] = 1;
 			}
 			$val = $_GET[$key];
+		}
+		if($pgkey == null){
+			$pgkey = 'active';
 		}
 		$result;  //返回数组
 		$pgstatus; //当前页状态
@@ -267,7 +270,7 @@ class M{
 			if($pages > 5){
 				if($i <= $val+2 and $i >= $val-2){
 					if($i == $val){
-						$pgstatus = 'active';
+						$pgstatus = $pgkey;
 					}else{
 						$pgstatus = '';
 					}
@@ -275,7 +278,7 @@ class M{
 				}
 			}else{
 				if($i == $val){
-					$pgstatus = 'active';
+					$pgstatus = $pgkey;
 				}else{
 					$pgstatus = '';
 				}
